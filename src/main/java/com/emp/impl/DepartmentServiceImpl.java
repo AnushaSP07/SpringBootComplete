@@ -2,11 +2,13 @@ package com.emp.impl;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.emp.entity.Department;
+import com.emp.exception.DepartmentNotFoundException;
 import com.emp.repo.DepartmentRepository;
 import com.emp.service.DepartmentService;
 
@@ -27,8 +29,12 @@ public class DepartmentServiceImpl implements DepartmentService{
 	}
 
 	@Override
-	public Department fetchDepartmentById(Long departmentId) {
-		return departmentRepository.findById(departmentId).get();
+	public Department fetchDepartmentById(Long departmentId) throws DepartmentNotFoundException {
+		Optional<Department> department = departmentRepository.findById(departmentId);
+		if(!department.isPresent()) {
+			throw new DepartmentNotFoundException("Department with given ID not found");
+		}
+		return department.get();
 	}
 
 	@Override

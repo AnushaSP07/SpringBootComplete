@@ -1,0 +1,36 @@
+server:
+  port: 9090
+  servlet:
+    context-path: /anusha-spring
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+spring:
+  application.name: anusha-spring
+  main.allow-circular-references: true
+  datasource:
+#    platform: postgres
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: pgadmin
+  jpa:
+    generate-ddl: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties.hibernate:
+      show_sql: false
+      format_sql: true
+      default_schema: anusha-springApp
+      jdbc.lob.non_contextual_creation: true
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+      order_by.default_null_ordering: last
+    hibernate.ddl-auto: update
+com.mercedesbenz.user:
+  corp-dir:
+    url: ldap://localhost:389/dc=cd,dc=dcx,dc=com
+    domain-name: cn=cis2,o=applications,dc=administration,dc=cd,dc=dcx,dc=com
+    encrypted-password: protected
+    provisioning-service:
+      url: https://provisioning-services-int.iam.corpintra.net/cd-provisioning-service/apps/CIS2.CBCCDDEV
